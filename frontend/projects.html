@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · InternHub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/projects.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">IH</span>InternHub</a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Dashboard</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Projects</h1>
+        <p class="muted">Projects that mentors can assign to interns.</p>
+      </div>
+      <button type="button" class="btn btn--primary" id="add-project-btn">+ New project</button>
+    </div>
+
+    <section class="card">
+      <div id="projects-view" class="view">
+        <div class="spinner" data-role="spinner" role="status" aria-label="Loading"></div>
+        <div data-role="status" hidden></div>
+        <table class="table" data-role="content" hidden>
+          <thead>
+            <tr><th>Title</th><th>Description</th><th>Max score</th><th>Assigned</th><th>Avg score</th><th class="table__actions">Actions</th></tr>
+          </thead>
+          <tbody id="projects-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="project-dialog" class="modal" aria-labelledby="project-form-title">
+    <form id="project-form" novalidate>
+      <h2 class="modal__title" id="project-form-title">New project</h2>
+      <div class="form-grid">
+        <label class="field field--full">
+          <span class="field__label">Title *</span>
+          <input name="title" maxlength="150" autocomplete="off">
+          <span class="field__error" data-error-for="title"></span>
+        </label>
+        <label class="field field--full">
+          <span class="field__label">Description</span>
+          <textarea name="description" rows="3" maxlength="5000"></textarea>
+          <span class="field__error" data-error-for="description"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Max score *</span>
+          <input name="max_score" type="number" min="1" step="1" inputmode="numeric">
+          <span class="field__error" data-error-for="max_score"></span>
+        </label>
+      </div>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" data-action="cancel">Cancel</button>
+        <button type="submit" class="btn btn--primary" id="project-submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

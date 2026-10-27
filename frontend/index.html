@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · InternHub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/dashboard.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">IH</span>InternHub</a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html" aria-current="page">Dashboard</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="muted">Track interns, their mentors and project scores.</p>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <section id="stats-view" class="view" aria-label="Summary">
+      <div class="spinner" data-role="spinner" role="status" aria-label="Loading"></div>
+      <div data-role="status" hidden></div>
+      <div class="stat-grid" data-role="content" hidden>
+        <article class="stat"><p class="stat__label">Interns</p><p class="stat__value" data-stat="totalInterns">–</p></article>
+        <article class="stat"><p class="stat__label">Projects</p><p class="stat__value" data-stat="totalProjects">–</p></article>
+        <article class="stat"><p class="stat__label">Awaiting review</p><p class="stat__value" data-stat="pendingReviews">–</p></article>
+        <article class="stat"><p class="stat__label">Average score</p><p class="stat__value" data-stat="averageScore">–</p></article>
+      </div>
+    </section>
+
+    <div class="grid-2">
+      <section class="card">
+        <h2 class="card__title">Leaderboard <span class="muted small">top 5 by average score</span></h2>
+        <div id="leaderboard-view" class="view">
+          <div class="spinner" data-role="spinner" role="status" aria-label="Loading"></div>
+          <div data-role="status" hidden></div>
+          <ol class="leaderboard" id="leaderboard-list" data-role="content" hidden></ol>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 class="card__title">Projects <a class="small" href="projects.html">Manage →</a></h2>
+        <div id="projects-view" class="view">
+          <div class="spinner" data-role="spinner" role="status" aria-label="Loading"></div>
+          <div data-role="status" hidden></div>
+          <ul class="project-list" id="project-list" data-role="content" hidden></ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Interns -->
+    <section class="card">
+      <div class="section-head">
+        <h2 class="card__title">Interns</h2>
+        <button type="button" class="btn btn--primary" id="add-intern-btn">+ Add intern</button>
+      </div>
+
+      <div class="filters">
+        <label class="field field--inline">
+          <span class="field__label">Track</span>
+          <select id="track-filter"></select>
+        </label>
+        <label class="field field--grow">
+          <span class="field__label">Search</span>
+          <input type="search" id="search-input" placeholder="Name or email…" maxlength="100" autocomplete="off">
+        </label>
+      </div>
+
+      <div id="interns-view" class="view">
+        <div class="spinner" data-role="spinner" role="status" aria-label="Loading"></div>
+        <div data-role="status" hidden></div>
+        <div data-role="content" hidden>
+          <table class="table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Phone</th><th>Track</th><th>Mentor</th><th class="table__actions">Actions</th></tr>
+            </thead>
+            <tbody id="interns-tbody"></tbody>
+          </table>
+          <nav class="pagination" id="pagination" aria-label="Interns pages"></nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add / edit intern -->
+  <dialog id="intern-dialog" class="modal" aria-labelledby="intern-form-title">
+    <form id="intern-form" novalidate>
+      <h2 class="modal__title" id="intern-form-title">Add intern</h2>
+      <div class="form-grid">
+        <label class="field">
+          <span class="field__label">Name *</span>
+          <input name="name" maxlength="100" autocomplete="off">
+          <span class="field__error" data-error-for="name"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Email *</span>
+          <input name="email" type="email" maxlength="150" autocomplete="off">
+          <span class="field__error" data-error-for="email"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Phone</span>
+          <input name="phone" type="tel" maxlength="20" autocomplete="off">
+          <span class="field__error" data-error-for="phone"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Track *</span>
+          <select name="track"></select>
+          <span class="field__error" data-error-for="track"></span>
+        </label>
+        <label class="field field--full">
+          <span class="field__label">Mentor</span>
+          <select name="mentor_id"></select>
+          <span class="field__error" data-error-for="mentor_id"></span>
+        </label>
+        <label class="field field--full">
+          <span class="field__label">Bio</span>
+          <textarea name="bio" rows="3" maxlength="2000"></textarea>
+          <span class="field__error" data-error-for="bio"></span>
+        </label>
+        <label class="field field--full">
+          <span class="field__label">LinkedIn URL</span>
+          <input name="linkedin_url" type="url" placeholder="https://www.linkedin.com/in/…" autocomplete="off">
+          <span class="field__error" data-error-for="linkedin_url"></span>
+        </label>
+      </div>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" data-action="cancel">Cancel</button>
+        <button type="submit" class="btn btn--primary" id="intern-submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

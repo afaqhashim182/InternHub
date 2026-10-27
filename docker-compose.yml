@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    container_name: internhub-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: internhub
+      POSTGRES_PASSWORD: internhub
+      POSTGRES_DB: internhub
+    ports:
+      - "5432:5432"
+    volumes:
+      - internhub-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U internhub -d internhub"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  internhub-data:

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intern · InternHub</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/intern.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">IH</span>InternHub</a>
+      <nav class="nav" aria-label="Main">
+        <a href="index.html">Dashboard</a>
+        <a href="projects.html">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a class="back-link" href="index.html">← Back to dashboard</a>
+
+    <div id="intern-view" class="view">
+      <div class="spinner" data-role="spinner" role="status" aria-label="Loading"></div>
+      <div data-role="status" hidden></div>
+
+      <div data-role="content" hidden>
+        <div class="page-head">
+          <div>
+            <h1 id="intern-name"></h1>
+            <p class="muted" id="intern-subtitle"></p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <section class="card">
+            <h2 class="card__title">Details</h2>
+            <dl class="details" id="intern-details"></dl>
+          </section>
+          <section class="card">
+            <h2 class="card__title">Profile</h2>
+            <div id="intern-profile"></div>
+          </section>
+        </div>
+
+        <section class="card">
+          <h2 class="card__title">Submissions</h2>
+
+          <form id="assign-form" class="assign-form" novalidate>
+            <label class="field field--grow">
+              <span class="field__label">Assign a project</span>
+              <select name="project_id"></select>
+              <span class="field__error" data-error-for="project_id"></span>
+            </label>
+            <button type="submit" class="btn btn--primary" id="assign-submit">Assign</button>
+          </form>
+
+          <div id="submission-list" class="submission-list"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
